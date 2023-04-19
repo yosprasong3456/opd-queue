@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-function ModalCallQ2(props) {
+function ModalCallQ(props) {
 
   return (
     <Modal
@@ -13,10 +13,10 @@ function ModalCallQ2(props) {
       <Modal.Body>
         <div style={{ textAlign: "center" }} className="App">
           <span style={{ fontSize: '5vw', fontWeight: 800 }}>เชิญหมายเลข</span>
-          <p style={{ fontSize: '15vw', fontWeight: 800 }} className="qBlink">
+          <p style={{ fontSize: '15vw', fontWeight: 800 }} className="callQueue">
             {props.data && props.data.queue_no}
           </p>
-          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ {props.data && props.data.room} </p>
+          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ D </p>
         </div>
       </Modal.Body>
       {/* <Modal.Footer>
@@ -26,4 +26,4 @@ function ModalCallQ2(props) {
   );
 }
 
-export default ModalCallQ2;
+export default ModalCallQ;

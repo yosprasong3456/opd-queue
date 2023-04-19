@@ -1,6 +1,6 @@
 import React from "react";
 import Container from "react-bootstrap/Container";
-import Navbar from "react-bootstrap/Navbar";
+import { Navbar, NavDropdown } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
 function Header() {
@@ -8,10 +8,7 @@ function Header() {
   return (
     <Navbar bg="dark" variant="dark" className="App">
       <Container>
-        <Navbar.Brand
-          className="App"
-          onDoubleClick={()=> navigate("/admin")} 
-        >
+        <Navbar.Brand className="App" onDoubleClick={() => navigate("/admin")}>
           {/* <img
             alt=""
             src="udch.png"
@@ -24,22 +21,95 @@ function Header() {
         <Navbar.Toggle />
         <Navbar.Collapse className="justify-content-end">
           <Navbar.Text
-            style={{ cursor: "pointer" }}
-            onClick={() => navigate("/queuehome")}
+            // style={{ cursor: "pointer" }}
+            // onClick={() => navigate("/queuehome")}
           >
-            เลือกห้องบริการ |
+            <NavDropdown title="ผู้ป่วยนอก">
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/queue")}
+                style={{ color: "black" }}
+              >
+                กดคิว (OPD)
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/queuehome")}
+                style={{ color: "black" }}
+              >
+                เลือกห้องบริการ (OPD)
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/dashboard")}
+                style={{ color: "black" }}
+              >
+                Dashboard (OPD)
+              </NavDropdown.Item>
+            </NavDropdown>
           </Navbar.Text>
-          <Navbar.Text
+          {/* <Navbar.Text
             style={{ cursor: "pointer", marginLeft: 6 }}
             onClick={() => navigate("/dashboard")}
           >
-            Dashboard |
-          </Navbar.Text>
+            | Dashboard |
+          </Navbar.Text> */}
           <Navbar.Text
-            style={{ cursor: "pointer", marginLeft: 6 }}
-            onClick={() => navigate("/queue")}
+            style={{ marginLeft: 6 }}
+            // onClick={() => navigate("/queue")}
           >
-            กดคิว
+             <NavDropdown title="| เวชระเบียน ">
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/queueMR")}
+                style={{ color: "black" }}
+              >
+                กดคิว (เวชระเบียน)
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/roomMR")}
+                style={{ color: "black" }}
+              >
+                เลือกห้องบริการ (เวชระเบียน)
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/dashboardMR")}
+                style={{ color: "black" }}
+              >
+                Dashboard (เวชระเบียน)
+              </NavDropdown.Item>
+            </NavDropdown>
+          </Navbar.Text>
+
+          <Navbar.Text style={{ cursor: "pointer", marginLeft: 6 }}>
+            <NavDropdown title="| นัดผ่านแอปฯ">
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/queue2")}
+                style={{ color: "black" }}
+              >
+                กดคิว (D)
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/callq2")}
+                style={{ color: "black" }}
+              >
+                เรียกคิว (D)
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/dashboard2")}
+                style={{ color: "black" }}
+              >
+                Dashboard (D)
+              </NavDropdown.Item>
+            </NavDropdown>
           </Navbar.Text>
         </Navbar.Collapse>
       </Container>

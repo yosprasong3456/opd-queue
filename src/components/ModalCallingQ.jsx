@@ -12,11 +12,11 @@ function ModalCallingQ(props) {
     >
       <Modal.Body>
         <div style={{ textAlign: "center" }} className="App">
-          <span style={{ fontSize: 100, fontWeight: 800 }}>{props.title ? props.title : 'เชิญหมายเลข'}</span>
-          <p style={{ fontSize: 200, fontWeight: 800 }} className="qBlink">
+          <span style={{ fontSize: '5vw', fontWeight: 800 }}>{props.title ? props.title : 'เชิญหมายเลข'}</span>
+          <p style={{ fontSize: '15vw', fontWeight: 800 }} className="qBlink">
             {props.data && props.data.queue_no}
           </p>
-          <p style={{ fontSize: 50, fontWeight: 800 }}>ที่ช่องบริการ {props.data && props.data.room} </p>
+          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ {props.data && props.data.room} </p>
         </div>
       </Modal.Body>
       {/* <Modal.Footer>

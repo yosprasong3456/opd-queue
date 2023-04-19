@@ -12,8 +12,8 @@ import ModalCallingQ from "../components/ModalCallingQ";
 import { apiUrl } from "../constants";
 // import { callNewVoice } from "../components/fncCall";
 
-function CallQ() {
-  const match = useMatch("/callq/:id");
+function CallQ2() {
+//   const match = useMatch("/callq/:id");
   const [room, setRoom] = useState(null);
   const [count, setCount] = useState(0);
   const [calledQ, setCalledQ] = useState([]);
@@ -31,20 +31,21 @@ function CallQ() {
   useEffect(() => {
     getAll();
     getMenu();
-  }, [match]);
+  }, []);
 
   const getAll = async () => {
-    let typeQ = match.params.id 
+    // let typeQ = match.params.id 
     
-    if(match.params.id !='1' && match.params.id !='2' && match.params.id !='4'){
-      typeQ = 3
-      setTypeQueue(typeQ)
-    }
+    // if(match.params.id !='1' && match.params.id !='2' && match.params.id !='4'){
+    //   typeQ = 3
+    //   setTypeQueue(typeQ)
+    // }
     const { data } = await axios.get(
-      `${apiUrl}opdQueue.php?room=${typeQ}`
+      `${apiUrl}opd2Queue.php?room=4`
     );
     if (data.message === "success") {
       // let countRow = data.data.length;
+      console.log(data.data)
       let result_called = data.data.filter(
         (data) => data.status == 1 || data.status == 2
       );
@@ -56,15 +57,7 @@ function CallQ() {
         })
       );
       setCallWait(result_wait);
-      // if(type){
-      // console.log('val', calledQ.find(val => val.id == params.id))
-      // if(!callingQueue){
-      //   setCount(calledQ.find(val => val.id == callingQueue.id))
-      // }
 
-      // }
-      // console.log(result_wait);
-      // setCount(countRow);
       return;
     } else {
       return;
@@ -87,20 +80,20 @@ function CallQ() {
   }, [soundConfig]);
 
   async function getMenu() {
-    let typeQ = match.params.id 
+    // let typeQ = match.params.id 
     
-    if(match.params.id !='1' && match.params.id !='2' && match.params.id !='4'){
-      typeQ = 3
-    }
-    const { data } = await axios.get(`${apiUrl}opdConfigMenu.php`);
-    if (data.message === "success") {
-      let result = data.data.find((data) => data.id == typeQ);
-      console.log("set", result);
-      setMenu(result);
-      return;
-    } else {
-      return;
-    }
+    // if(match.params.id !='1' && match.params.id !='2' && match.params.id !='4'){
+    //   typeQ = 3
+    // }
+    // const { data } = await axios.get(`${apiUrl}opdConfigMenu.php`);
+    // if (data.message === "success") {
+    //   let result = data.data.find((data) => data.id == typeQ);
+    //   console.log("set", result);
+    //   setMenu(result);
+    //   return;
+    // } else {
+    //   return;
+    // }
   }
 
   async function getSoundConfig() {
@@ -126,7 +119,7 @@ function CallQ() {
   }
 
   async function getCalled() {
-    const { data } = await axios.get(`${apiUrl}opdCallQ.php`);
+    const { data } = await axios.get(`${apiUrl}opd2CallQ.php`);
     if (data.message === "success") {
       // console.log(data);
       if (!callQ) {
@@ -143,26 +136,28 @@ function CallQ() {
   }
 
   const callQFnc = async (params) => {
+    console.log(params)
     const count = parseInt(params.count) + 1;
-    let room 
-    if(params.queue_type == 1){
-      room = "A"
-    }else if(params.queue_type ==2){
-      room = "B"
-    }else{
-      let textRoom = match.params.id
-      console.log('room', textRoom.substring(1,2))
-      room = textRoom.substring(1,2)
-    }
+    let room = 'D'
+    // if(params.queue_type == 1){
+    //   room = "A"
+    // }else if(params.queue_type ==2){
+    //   room = "B"
+    // }else{
+    //   let textRoom = match.params.id
+    //   console.log('room', textRoom.substring(1,2))
+    //   room = textRoom.substring(1,2)
+    // }
     const dataSet = {
       id: params.id,
       status: 2,
-      count: count,
+      count: 0,
       room: room
     };
+    console.log(dataSet)
     // params.room = room
     // setCount(dataSet)
-    const { data } = await axios.put(`${apiUrl}opdQueue.php`, dataSet);
+    const { data } = await axios.put(`${apiUrl}opd2Queue.php`, dataSet);
     console.log("callQfnc", data);
     getAll();
     callSound(params, 0 , room);
@@ -174,7 +169,7 @@ function CallQ() {
       id: params.id,
       status: 0,
     };
-    const { data } = await axios.put(`${apiUrl}opdQueue.php`, dataSet);
+    const { data } = await axios.put(`${apiUrl}opd2Queue.php`, dataSet);
     getAll();
     // callSound(params);
     // console.log("data", data);
@@ -204,16 +199,12 @@ function CallQ() {
       setShowQ(params);
 
       if (soundConfig.actived == 0) {
-        console.log("sound counter");
-        let text4 = room;
-          console.log("sound dashboard");
-          console.log("sound counter");
           const audio = new Audio("/audio/call.mp3");
           const audio1 = new Audio(`/audio/${params.queue_no.charAt(0)}.mp3`);
           const audio2 = new Audio(`/audio/${params.queue_no.charAt(1)}.mp3`);
           const audio3 = new Audio(`/audio/${params.queue_no.charAt(2)}.mp3`);
           const audio4 = new Audio(`/audio/${params.queue_no.charAt(3)}.mp3`);
-          const audio5 = new Audio(`/audio/${text4}.mp3`);
+          const audio5 = new Audio(`/audio/D.mp3`);
           const service = new Audio(`/audio/service.mp3`);
           const audioEnd = new Audio(`/audio/endcall.mp3`);
 
@@ -248,42 +239,10 @@ function CallQ() {
       } else {
         console.log("sound to dashboard");
       }
-      // console.log("params", text1, text2, text3, text4, params.queue_type);
-      // setTimeout(() => {
-      //   updateQ(params);
-      // }, 8000);
+
       return;
     }
   }
-
-  // const audio = new Audio(require("../audio/call.mp3"));
-  // const audioNumber = (params) => new Audio(require(`../audio/${params}.mp3`));
-
-  // const startAudio = (text1, text2, text3, text4, text5) => {
-  //   audio.play();
-  //   console.log("mp3", text1, text2, text3, text4, text5);
-  //   setTimeout(() => {
-  //     audioNumber(text1).play();
-  //   }, 1800);
-  //   setTimeout(() => {
-  //     audioNumber(text2).play();
-  //   }, 2700);
-  //   setTimeout(() => {
-  //     audioNumber(text3).play();
-  //   }, 3500);
-  //   setTimeout(() => {
-  //     audioNumber(text4).play();
-  //   }, 4300);
-  //   setTimeout(() => {
-  //     audioNumber("service").play();
-  //   }, 5100);
-  //   setTimeout(() => {
-  //     audioNumber(text5).play();
-  //   }, 6900);
-  //   // setTimeout(() => {
-  //   //   audioNumber("endsound").play();
-  //   // }, 7700);
-  // };
 
   const colorBtn = ["", "#FBE7C6", "#B4F8C8", "#A0E7E5", "#FFAEBC"];
 
@@ -331,7 +290,8 @@ function CallQ() {
     <div>
       <Header />
       <div className="App">
-        {menu && <h1 style={{ padding: 20 }}>{menu.name}</h1>}
+        <br />
+      <h1>ช่องบริการ D</h1>
         <hr />
         <h1>เรียกคิวอัตโนมัติ</h1>
         <h1 style={{ marginBottom: 20 }}>
@@ -429,32 +389,5 @@ function CallQ() {
   );
 }
 
-// function getTime() {
-//   const d = new Date();
-//   const hour = d.getHours();
-//   const min = d.getMinutes();
-//   let result_min;
-//   let result_hour;
-//   if (hour < 10) {
-//     result_hour = `0${hour}`;
-//   } else {
-//     result_hour = hour;
-//   }
-//   if (min < 10) {
-//     result_min = `0${min}`;
-//   } else {
-//     result_min = min;
-//   }
-//   return `${result_hour}:${result_min}`;
-// }
 
-// function reloadFnc() {
-//   let a;
-//   const d = new Date();
-//   setTimeout(() => {
-//     a = d.getSeconds();
-//   }, 1000);
-//   return a;
-// }
-
-export default CallQ;
+export default CallQ2;

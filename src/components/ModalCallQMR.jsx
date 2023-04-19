@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-function ModalCallQ2(props) {
+function ModalCallQMR(props) {
 
   return (
     <Modal
@@ -16,7 +16,7 @@ function ModalCallQ2(props) {
           <p style={{ fontSize: '15vw', fontWeight: 800 }} className="qBlink">
             {props.data && props.data.queue_no}
           </p>
-          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ {props.data && props.data.room} </p>
+          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ B{props.data && props.data.room}</p>
         </div>
       </Modal.Body>
       {/* <Modal.Footer>
@@ -26,4 +26,4 @@ function ModalCallQ2(props) {
   );
 }
 
-export default ModalCallQ2;
+export default ModalCallQMR;
