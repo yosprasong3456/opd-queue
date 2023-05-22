@@ -19,7 +19,7 @@ function Header() {
           โรงพยาบาลมะเร็งอุดรธานี
         </Navbar.Brand>
         <Navbar.Toggle />
-        <Navbar.Collapse className="justify-content-end">
+        <Navbar.Collapse className="justify-content-end" style={{marginRight: 30}}>
           <Navbar.Text
             // style={{ cursor: "pointer" }}
             // onClick={() => navigate("/queuehome")}
@@ -86,7 +86,7 @@ function Header() {
           </Navbar.Text>
 
           <Navbar.Text style={{ cursor: "pointer", marginLeft: 6 }}>
-            <NavDropdown title="| นัดผ่านแอปฯ">
+            <NavDropdown title="| ห้องยา ">
               <NavDropdown.Item
                 href="#"
                 onClick={() => navigate("/queue2")}

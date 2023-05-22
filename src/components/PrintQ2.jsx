@@ -9,6 +9,7 @@ function PrintQ2(props) {
   const [date, setDate] = useState(null)
   const [time, setTime] = useState(null)
   const [callWait, setCallWait] = useState(null)
+  const [rePrint, setrePrint] = useState(false)
   const componentRef = React.useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -16,8 +17,11 @@ function PrintQ2(props) {
     onAfterPrint: ()=> handleClosePrint()
   });
 
+  
+
   useEffect(() => {
     getAll()
+    setrePrint(false)
     const date = new Date()
     let hour = date.getHours()
     let minutes = date.getMinutes()
@@ -31,6 +35,15 @@ function PrintQ2(props) {
       // typeCheck(props.type)
     }, 1500);
   }, []);
+
+  useEffect(() => {
+    if(rePrint){
+      console.log('rePrint')
+      handlePrint();
+      
+    }
+  }, [rePrint, setrePrint])
+  
 
   const getAll = async () => {
     setCallWait(null)
@@ -52,8 +65,12 @@ function PrintQ2(props) {
   };
 
   function handleClosePrint (){
-    props.setType(null);
-    props.setQData(null);
+    if(rePrint){
+      props.setType(null);
+      props.setQData(null);
+    }else{
+      setrePrint(true)
+    }
   }
 
   const typeCheck = (params) => {
