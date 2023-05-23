@@ -1,37 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Header from "../components/Header";
-import Button from "react-bootstrap/Button";
-import axios from "axios";
-import { apiUrl } from "../constants";
 import { useNavigate } from "react-router-dom";
 function RoomMR() {
   const navigate = useNavigate();
-  const [menu, setMenu] = useState(null);
-  const [counter, setCounter] = useState(null);
-  // const getAll = async () => {
-  //   const { data } = await axios.get(`${apiUrl}opdConfigMenu.php`);
-  //   if (data.message === "success") {
-  //     console.log("set", data.data);
-  //     setMenu(
-  //       data.data.filter(
-  //         (data) => data.actived == 1 && data.id != 77 && data.id != 3
-  //       )
-  //     );
-  //     setCounter(
-  //       data.data.find(
-  //         (data) => data.actived == 1 && data.id != 77 && data.id == 3
-  //       )
-  //     );
-
-  //     return;
-  //   } else {
-  //     return;
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getAll();
-  // }, []);
 
   const counterMR = [
     { id: "1", name: "ช่องบริการที่ 1" },

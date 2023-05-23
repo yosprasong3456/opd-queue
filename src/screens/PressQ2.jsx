@@ -10,6 +10,7 @@ import {
   FcShipped,
   FcSurvey,
   FcSmartphoneTablet,
+  FcDeployment
 } from "react-icons/fc";
 import { apiUrl } from "../constants";
 import { FcRefresh } from "react-icons/fc";
@@ -103,7 +104,7 @@ function PressQ2() {
                   getQ={() => getQ(data.id)}
                   bgColor={data.color_btn}
                   title={data.name}
-                  icon={iconBtn(data.id)}
+                  icon={<FcSurvey size={60}/>}
                 />
               );
             })}

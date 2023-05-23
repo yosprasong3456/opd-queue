@@ -27,7 +27,7 @@ function PrintQ2(props) {
     let minutes = date.getMinutes()
     if (hour < 10){ hour = '0'+date.getHours() }
     if (minutes < 10) { minutes = '0'+date.getMinutes()}
-    setTime(`${date.getHours()}:${date.getMinutes()}`)
+    setTime(`${hour}:${minutes}`)
     setDate(dayjs(`${date.getFullYear()}-${parseInt(date.getMonth() + 1)}-${date.getDate()}`).locale('th').add(543, 'year').format('DD MMMM YYYY'))
     setTimeout(() => {
       // console.log("day js DD-MM-YYYY", dayjs(`${date.getFullYear()}-${parseInt(date.getMonth() + 1)}-${date.getDate()}`).locale('th').add(543, 'year').format('DD MMMM YYYY'))
