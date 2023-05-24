@@ -127,7 +127,7 @@ function DashboardTwo() {
       // console.log("params", params);
       if (soundConfig) {
         if (soundConfig.actived == 1) {
-          let text4 = "D";
+          let text4 = params.room;
           console.log("sound dashboard");
           console.log("sound counter");
           const audio = new Audio("https://opd-queue.udch.work/audio/call.mp3");

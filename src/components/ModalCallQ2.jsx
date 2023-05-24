@@ -16,7 +16,7 @@ function ModalCallQ(props) {
           <p style={{ fontSize: '15vw', fontWeight: 800 }} className="callQueue">
             {props.data && props.data.queue_no}
           </p>
-          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ D </p>
+          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ {props.data && props.data.room}</p>
         </div>
       </Modal.Body>
       {/* <Modal.Footer>

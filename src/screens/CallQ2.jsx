@@ -287,6 +287,10 @@ function CallQ2() {
     console.log(data);
   };
 
+  const nextQueue = ()=>{
+    setCallingQueue(null);
+  }
+
   function getCounter() {
     if (callingQueue) {
       const res = calledQ.find((val) => (val.id = callingQueue.id));
@@ -325,6 +329,12 @@ function CallQ2() {
               onClick={() => newCalledQueue()}
             >
               เรียกซ้ำ
+            </Button>
+            <Button
+              style={{ margin: 5, padding: 20, fontSize: 30 }}
+              onClick={() => nextQueue()}
+            >
+              เรียกคิวต่อไป
             </Button>
             <Button
               variant="success"
