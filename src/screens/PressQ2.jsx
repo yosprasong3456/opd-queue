@@ -94,7 +94,7 @@ function PressQ2() {
         
         </Col>
       </Row>
-        <div className="centerDiv" style={{marginTop: '18%'}}>
+        <div className="centerDiv" style={{marginTop: '22%'}}>
         
           {menu &&
             menu.map((data, index) => {
@@ -103,7 +103,7 @@ function PressQ2() {
                   key={index}
                   getQ={() => getQ(data.id)}
                   bgColor={data.color_btn}
-                  title={data.name}
+                  title={`กดรับคิว ${data.name}`}
                   icon={<FcSurvey size={60}/>}
                 />
               );
