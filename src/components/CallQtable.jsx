@@ -39,17 +39,32 @@ function CallQtable(props) {
                         <Button
                           disabled={data.count > "2" ? true : false}
                           onClick={() => props.btnAction(data)}
+                          style={{ marginRight: 5 }}
+
+                        >
+                          {props.btnTitle}
+                        </Button>
+                        {props.btnEndQueue &&  
+                        <Button
+                          variant="success"
+                          disabled={data.count > "2" ? true : false}
+                          onClick={() => props.btnEndQueue(data)}
+                        >
+                          จบคิว
+                        </Button>}
+                       
+                      </>
+                    ) : (
+                      <>
+                        <Button
+                          disabled={props.disabled}
+                          onClick={() => props.btnAction(data)}
                         >
                           {props.btnTitle}
                         </Button>
                       </>
-                    ) : (
-                      <Button
-                        disabled={props.disabled}
-                        onClick={() => props.btnAction(data)}
-                      >
-                        {props.btnTitle}
-                      </Button>
+                      
+                      
                     )}
                   </td>
                 </tr>

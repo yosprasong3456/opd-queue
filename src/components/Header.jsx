@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 function Header() {
   const navigate = useNavigate();
   return (
-    <Navbar bg="dark" variant="dark" className="App">
+    <Navbar style={{backgroundColor:'#37d67a', boxShadow: 'rgba(0, 0, 0, 0.24) 0px 3px 8px'}} variant="dark" className="App">
       <Container>
         <Navbar.Brand className="App" onDoubleClick={() => navigate("/admin")}>
           {/* <img
@@ -24,6 +24,7 @@ function Header() {
             // style={{ cursor: "pointer" }}
             // onClick={() => navigate("/queuehome")}
           >
+
             <NavDropdown title="ผู้ป่วยนอก">
               <NavDropdown.Item
                 href="#"
@@ -96,7 +97,7 @@ function Header() {
               </NavDropdown.Item>
               <NavDropdown.Item
                 href="#"
-                onClick={() => navigate("/callq2")}
+                onClick={() => navigate("/select-drug")}
                 style={{ color: "black" }}
               >
                 เรียกคิว (D)

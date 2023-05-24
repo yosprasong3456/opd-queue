@@ -17,6 +17,7 @@ import PressQMR from './screens/PressQMr'
 import RoomMR from './screens/RoomMr';
 import CallQMR from './screens/CallQMR';
 import DashboardMR from './screens/DashboardMR';
+import RoomDrug from './screens/RoomDrug';
 //--------------------------------------
 function App() {
   console.log(process.env.NODE_ENV)
@@ -37,7 +38,8 @@ function App() {
         {/* App couter D */}
         <Route path="/dashboard2" element={<DashboardTwo />}/>
         <Route path="/queue2" element={<PressQ2 />}/>
-        <Route path="/callq2" element={<CallQ2 />}/>
+        <Route path="/select-drug" element={<RoomDrug />}/>
+        <Route path="/callq2/:id" element={<CallQ2 />}/>
 
         {/* MR */}
         <Route path="/dashboardMR" element={<DashboardMR />}/>

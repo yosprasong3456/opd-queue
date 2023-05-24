@@ -13,7 +13,7 @@ import { apiUrl } from "../constants";
 // import { callNewVoice } from "../components/fncCall";
 
 function CallQ2() {
-//   const match = useMatch("/callq/:id");
+  const match = useMatch("/callq2/:id");
   const [room, setRoom] = useState(null);
   const [count, setCount] = useState(0);
   const [calledQ, setCalledQ] = useState([]);
@@ -27,30 +27,23 @@ function CallQ2() {
   const [callingQueue, setCallingQueue] = useState(null);
   const [openTable, setOpenTable] = useState(true);
   const [noQueue, setNoQueue] = useState(null);
-  const [typeQueue, setTypeQueue] = useState(null)
+  const [typeQueue, setTypeQueue] = useState(null);
   useEffect(() => {
     getAll();
     getMenu();
   }, []);
 
   const getAll = async () => {
-    // let typeQ = match.params.id 
-    
-    // if(match.params.id !='1' && match.params.id !='2' && match.params.id !='4'){
-    //   typeQ = 3
-    //   setTypeQueue(typeQ)
-    // }
-    const { data } = await axios.get(
-      `${apiUrl}opd2Queue.php?room=4`
-    );
+    console.log("match", match.params.id);
+    const { data } = await axios.get(`${apiUrl}opd2Queue.php?room=4`);
     if (data.message === "success") {
       // let countRow = data.data.length;
-      console.log(data.data)
+      console.log(data.data);
       let result_called = data.data.filter(
         (data) => data.status == 1 || data.status == 2
       );
       let result_wait = data.data.filter((data) => data.status == 0);
-      console.log(result_called)
+      console.log(result_called);
       setCalledQ(
         result_called.sort(function (a, b) {
           return b.queue_no.substr(1, 3) - a.queue_no.substr(1, 3);
@@ -80,8 +73,7 @@ function CallQ2() {
   }, [soundConfig]);
 
   async function getMenu() {
-    // let typeQ = match.params.id 
-    
+    // let typeQ = match.params.id
     // if(match.params.id !='1' && match.params.id !='2' && match.params.id !='4'){
     //   typeQ = 3
     // }
@@ -136,9 +128,9 @@ function CallQ2() {
   }
 
   const callQFnc = async (params) => {
-    console.log(params)
+    console.log(params);
     const count = parseInt(params.count) + 1;
-    let room = 'D'
+    let room = match.params.id;
     // if(params.queue_type == 1){
     //   room = "A"
     // }else if(params.queue_type ==2){
@@ -152,15 +144,15 @@ function CallQ2() {
       id: params.id,
       status: 2,
       count: 0,
-      room: room
+      room: room,
     };
-    console.log(dataSet)
+    console.log(dataSet);
     // params.room = room
     // setCount(dataSet)
     const { data } = await axios.put(`${apiUrl}opd2Queue.php`, dataSet);
     console.log("callQfnc", data);
     getAll();
-    callSound(params, 0 , room);
+    callSound(params, 0, room);
     console.log("data", data);
   };
 
@@ -188,54 +180,54 @@ function CallQ2() {
     speechSynthesis.speak(message);
   };
 
-  const callAgain = (params, room) => callSound(params , 1, room);
+  const callAgain = (params, room) => callSound(params, 1, room);
 
   function callSound(params = 0, call = 0, room) {
     console.log("callsound", params);
 
     if (params) {
-      console.log('params',params);
+      console.log("params", params);
       setModalShow(true);
       setShowQ(params);
 
       if (soundConfig.actived == 0) {
-          const audio = new Audio("/audio/call.mp3");
-          const audio1 = new Audio(`/audio/${params.queue_no.charAt(0)}.mp3`);
-          const audio2 = new Audio(`/audio/${params.queue_no.charAt(1)}.mp3`);
-          const audio3 = new Audio(`/audio/${params.queue_no.charAt(2)}.mp3`);
-          const audio4 = new Audio(`/audio/${params.queue_no.charAt(3)}.mp3`);
-          const audio5 = new Audio(`/audio/D.mp3`);
-          const service = new Audio(`/audio/service.mp3`);
-          const audioEnd = new Audio(`/audio/endcall.mp3`);
+        const audio = new Audio("/audio/call.mp3");
+        const audio1 = new Audio(`/audio/${params.queue_no.charAt(0)}.mp3`);
+        const audio2 = new Audio(`/audio/${params.queue_no.charAt(1)}.mp3`);
+        const audio3 = new Audio(`/audio/${params.queue_no.charAt(2)}.mp3`);
+        const audio4 = new Audio(`/audio/${params.queue_no.charAt(3)}.mp3`);
+        const audio5 = new Audio(`/audio/D.mp3`);
+        const service = new Audio(`/audio/service.mp3`);
+        const audioEnd = new Audio(`/audio/endcall.mp3`);
 
-          audio.play();
-          audio.addEventListener("ended", function () {
-            audio1.play();
-          });
-          audio1.addEventListener("ended", function () {
-            audio2.play();
-          });
-          audio2.addEventListener("ended", function () {
-            audio3.play();
-          });
-          audio3.addEventListener("ended", function () {
-            audio4.play();
-          });
-          audio4.addEventListener("ended", function () {
-            service.play();
-          });
-          service.addEventListener("ended", function () {
-            audio5.play();
-          });
-          audio5.addEventListener("ended", function () {
-            audioEnd.play();
-          });
-          audioEnd.addEventListener("ended", function () {
-            // callAgain(params)
-            if (!call) {
-              callAgain(params, room)
-            }
-          });
+        audio.play();
+        audio.addEventListener("ended", function () {
+          audio1.play();
+        });
+        audio1.addEventListener("ended", function () {
+          audio2.play();
+        });
+        audio2.addEventListener("ended", function () {
+          audio3.play();
+        });
+        audio3.addEventListener("ended", function () {
+          audio4.play();
+        });
+        audio4.addEventListener("ended", function () {
+          service.play();
+        });
+        service.addEventListener("ended", function () {
+          audio5.play();
+        });
+        audio5.addEventListener("ended", function () {
+          audioEnd.play();
+        });
+        audioEnd.addEventListener("ended", function () {
+          // callAgain(params)
+          if (!call) {
+            callAgain(params, room);
+          }
+        });
       } else {
         console.log("sound to dashboard");
       }
@@ -271,8 +263,28 @@ function CallQ2() {
     callQFnc(result);
   };
 
-  const endCallQueue = () => {
+  const endCallQueue = async () => {
+    const dataSet = {
+      id: callingQueue.id,
+      status: 4,
+      room: match.params.id,
+      count: "",
+    };
+    const { data } = await axios.put(`${apiUrl}opd2Queue.php`, dataSet);
+    console.log(data);
     setCallingQueue(null);
+  };
+
+  const endQueue = async (params) => {
+    setCallingQueue(null);
+    const dataSet = {
+      id: params.id,
+      status: 4,
+      room: match.params.id,
+      count: "",
+    };
+    const { data } = await axios.put(`${apiUrl}opd2Queue.php`, dataSet);
+    console.log(data);
   };
 
   function getCounter() {
@@ -291,21 +303,17 @@ function CallQ2() {
       <Header />
       <div className="App">
         <br />
-      <h1>ช่องบริการ D</h1>
+        <h1>ห้องยา ช่องบริการ {match.params.id}</h1>
         <hr />
         <h1>เรียกคิวอัตโนมัติ</h1>
-        <h1 style={{ marginBottom: 20 }}>
-          กำลังเรียกคิว :{" "}
-          {callingQueue && (
+        {callingQueue && (
+          <h1 style={{ marginBottom: 20 }}>
+            กำลังเรียกคิว :{" "}
             <span className="callingQueue">
               <b>{callingQueue.queue_no}</b>
             </span>
-          )}
-        </h1>
-
-        {/* <Button style={{ margin: 5 }} onClick={() => newCallQueue()}>
-          เรียกคิว
-        </Button> */}
+          </h1>
+        )}
 
         {callingQueue ? (
           <>
@@ -342,7 +350,11 @@ function CallQ2() {
             )}
           </>
         )}
-        {callWait.length > 0 ? <p>จำนวนที่รอคิว : {callWait.length}</p> : <p>ไม่มีคิว</p>}
+        {callWait.length > 0 ? (
+          <p>จำนวนที่รอคิว : {callWait.length}</p>
+        ) : (
+          <p>ไม่มีคิว</p>
+        )}
         <hr />
         <h1>
           เรียกคิวแบบตาราง{" "}
@@ -357,7 +369,7 @@ function CallQ2() {
           <Row style={{ width: "100%", margin: "auto" }}>
             <Col>
               <CallQtable
-                color={colorBtn[typeQueue]}
+                color="#ffaebc"
                 data={callWait}
                 title="รอคิว"
                 btnAction={callQFnc}
@@ -368,13 +380,14 @@ function CallQ2() {
             <Col>
               <Col>
                 <CallQtable
-                  color={colorBtn[typeQueue]}
+                  color="#ffaebc"
                   data={calledQ}
                   title="เรียกคิวแล้ว"
                   btnAction={callQBack}
                   btnTitle="รอคิว"
                   btnReCall={callQFnc}
                   btnReCallTitle="เรียกซ้ำ"
+                  btnEndQueue={endQueue}
                   disabled={callingQueue ? true : soundConfig ? false : true}
                 />
               </Col>
@@ -388,6 +401,5 @@ function CallQ2() {
     </div>
   );
 }
-
 
 export default CallQ2;
