@@ -30,9 +30,7 @@ function PrintQ2(props) {
     setTime(`${hour}:${minutes}`)
     setDate(dayjs(`${date.getFullYear()}-${parseInt(date.getMonth() + 1)}-${date.getDate()}`).locale('th').add(543, 'year').format('DD MMMM YYYY'))
     setTimeout(() => {
-      // console.log("day js DD-MM-YYYY", dayjs(`${date.getFullYear()}-${parseInt(date.getMonth() + 1)}-${date.getDate()}`).locale('th').add(543, 'year').format('DD MMMM YYYY'))
       handlePrint();
-      // typeCheck(props.type)
     }, 1500);
   }, []);
 
@@ -85,8 +83,7 @@ function PrintQ2(props) {
       {/* <h5 style={{paddingTop: 20}}>โรงพยาบาลมะเร็งอุดรธานี</h5> */}
       {/* <img src="/fulludch.png" alt="logo" width={200} style={{paddingTop: 20}} />
       <hr /> */}
-      {/* <p>ช่องบริการที่ {typeCheck(props.type)}</p> */}
-      <h1 style={{ fontSize: 30, paddingTop: 10 }}>{props.queue}</h1>
+      <h1 style={{ fontSize: 30, paddingTop: 5 }}>{props.queue}</h1>
       <p>จำนวนที่รอคิว : {callWait - 1}</p>
       {/* <span>{time && time}</span>
       <p>{date && date}</p> */}
