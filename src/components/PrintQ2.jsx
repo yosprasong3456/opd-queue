@@ -64,7 +64,7 @@ function PrintQ2(props) {
     }
   };
 
-  function handleClosePrint (){
+  function handleClosePrint (){ 
     if(rePrint){
       props.setType(null);
       props.setQData(null);
