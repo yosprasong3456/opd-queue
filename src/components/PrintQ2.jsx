@@ -83,7 +83,8 @@ function PrintQ2(props) {
       {/* <h5 style={{paddingTop: 20}}>โรงพยาบาลมะเร็งอุดรธานี</h5> */}
       {/* <img src="/fulludch.png" alt="logo" width={200} style={{paddingTop: 20}} />
       <hr /> */}
-      <h1 style={{ fontSize: 30, paddingTop: 5 }}>{props.queue}</h1>
+      <h6>ห้องยานอก</h6>
+      <h1 style={{ fontSize: 30, paddingTop: 1 }}>{props.queue}</h1>
       <p>จำนวนที่รอคิว : {callWait - 1}</p>
       {/* <span>{time && time}</span>
       <p>{date && date}</p> */}
