@@ -101,10 +101,13 @@ function DashboardTwo() {
   async function getCalled() {
     const { data } = await axios.get(`${apiUrl}opd2CallQ.php`);
     if (data.message === "success") {
-      // console.log(data);
-      if (!callQ) {
-        setCallQ(true);
-        setShowQ(data.data);
+      if (data.data.room == "3" || data.data.room == "4") {
+        if (!callQ) {
+          setCallQ(true);
+          setShowQ(data.data);
+        }
+      } else {
+        return;
       }
     } else {
       return;
@@ -176,12 +179,13 @@ function DashboardTwo() {
             audioEnd.play();
           });
           audioEnd.addEventListener("ended", function () {
-            console.log("Hello world");
-            if (!call) {
-              updateQ(params, 1);
-            } else {
-              updateQ(params);
-            }
+            updateQ(params);
+            // console.log("Hello world");
+            // if (!call) {
+            //   updateQ(params, 1);
+            // } else {
+            //   updateQ(params);
+            // }
           });
         } else {
           setTimeout(() => {
@@ -211,7 +215,6 @@ function DashboardTwo() {
       setModalShow(false);
       setCallQ(false);
       setShowQ(null);
-      
     }
   }
 
@@ -243,12 +246,13 @@ function DashboardTwo() {
       </Row>
       {/* <h1 style={{ padding: 20 }}>Dashboard Queue</h1> */}
       <Container>
-        <Row style={{ width: "100%", margin: "auto", marginTop: 20 }}>
-          {menu && allQueue && (
+        <Row style={{ width: "50%", margin: "auto", marginTop: 20 }}>
+          {allQueue && (
             <Col>
+              <h1>ห้องยานอก</h1>
               <Qtable2
-                color={menu.color_btn}
-                title={menu.name}
+                color="#37d67a"
+                // title={menu.name}
                 data={allQueue.filter((val) => val.queue_type == 4)}
               />
             </Col>

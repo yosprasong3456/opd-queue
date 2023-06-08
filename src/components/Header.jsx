@@ -87,20 +87,20 @@ function Header() {
           </Navbar.Text>
 
           <Navbar.Text style={{ cursor: "pointer", marginLeft: 6 }}>
-            <NavDropdown title="| ห้องยา ">
+            <NavDropdown title="| ห้องยา&การเงิน">
               <NavDropdown.Item
                 href="#"
                 onClick={() => navigate("/queue2")}
                 style={{ color: "black" }}
               >
-                กดคิว (D)
+                กดคิว
               </NavDropdown.Item>
               <NavDropdown.Item
                 href="#"
                 onClick={() => navigate("/select-drug")}
                 style={{ color: "black" }}
               >
-                เรียกคิว (D)
+                เรียกคิว
               </NavDropdown.Item>
               <NavDropdown.Divider />
               <NavDropdown.Item
@@ -108,7 +108,14 @@ function Header() {
                 onClick={() => navigate("/dashboard2")}
                 style={{ color: "black" }}
               >
-                Dashboard (D)
+                Dashboard (ห้องยา)
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/dashboard2-fnc")}
+                style={{ color: "black" }}
+              >
+                Dashboard (การเงิน)
               </NavDropdown.Item>
             </NavDropdown>
           </Navbar.Text>

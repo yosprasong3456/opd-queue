@@ -283,13 +283,14 @@ function CallQ2() {
       room: match.params.id,
       count: "",
     };
+    console.log(dataSet);
     const { data } = await axios.put(`${apiUrl}opd2Queue.php`, dataSet);
     console.log(data);
   };
 
-  const nextQueue = ()=>{
+  const nextQueue = () => {
     setCallingQueue(null);
-  }
+  };
 
   function getCounter() {
     if (callingQueue) {
@@ -307,19 +308,25 @@ function CallQ2() {
       <Header />
       <div className="App">
         <br />
-        <h1>ห้องยา ช่องบริการ {match.params.id}</h1>
-        <hr />
-        <h1>เรียกคิวอัตโนมัติ</h1>
-        {callingQueue && (
+        <h1>
+          {match.params.id == 3
+            ? "ห้องยา ช่องบริการที่ " + match.params.id
+            : match.params.id == 4
+            ? "ห้องยา ช่องบริการที่ " + match.params.id
+            : "การเงิน ช่องบริการที่ " + match.params.id}
+        </h1>
+        {/* <hr />
+        <h1>เรียกคิวอัตโนมัติ</h1> */}
+        {/* {callingQueue && (
           <h1 style={{ marginBottom: 20 }}>
             กำลังเรียกคิว :{" "}
             <span className="callingQueue">
               <b>{callingQueue.queue_no}</b>
             </span>
           </h1>
-        )}
+        )} */}
 
-        {callingQueue ? (
+        {/* {callingQueue ? (
           <>
             <Button
               variant="warning"
@@ -359,53 +366,50 @@ function CallQ2() {
               </h2>
             )}
           </>
-        )}
-        {callWait.length > 0 ? (
+        )} */}
+        {/* {callWait.length > 0 ? (
           <p>จำนวนที่รอคิว : {callWait.length}</p>
         ) : (
           <p>ไม่มีคิว</p>
-        )}
+        )} */}
         <hr />
         <h1>
           เรียกคิวแบบตาราง{" "}
-          <Button
+          {/* <Button
             variant={openTable ? "danger" : "warning"}
             onClick={() => setOpenTable(!openTable)}
           >
             {openTable ? "ปิด" : "เปิด"}
-          </Button>
+          </Button> */}
         </h1>
-        {openTable ? (
-          <Row style={{ width: "100%", margin: "auto" }}>
+        <Row style={{ width: "100%", margin: "auto" }}>
+          <Col>
+            <CallQtable
+              color="#ffaebc"
+              data={callWait}
+              title="รอคิว"
+              btnAction={callQFnc}
+              btnTitle="เรียกคิว"
+              btnEndQueue={endQueue}
+              disabled={callingQueue ? true : soundConfig ? false : true}
+            />
+          </Col>
+          <Col>
             <Col>
               <CallQtable
                 color="#ffaebc"
-                data={callWait}
-                title="รอคิว"
-                btnAction={callQFnc}
-                btnTitle="เรียกคิว"
+                data={calledQ}
+                title="เรียกคิวแล้ว"
+                btnAction={callQBack}
+                btnTitle="รอคิว"
+                btnReCall={callQFnc}
+                btnReCallTitle="เรียกซ้ำ"
+                btnEndQueue={endQueue}
                 disabled={callingQueue ? true : soundConfig ? false : true}
               />
             </Col>
-            <Col>
-              <Col>
-                <CallQtable
-                  color="#ffaebc"
-                  data={calledQ}
-                  title="เรียกคิวแล้ว"
-                  btnAction={callQBack}
-                  btnTitle="รอคิว"
-                  btnReCall={callQFnc}
-                  btnReCallTitle="เรียกซ้ำ"
-                  btnEndQueue={endQueue}
-                  disabled={callingQueue ? true : soundConfig ? false : true}
-                />
-              </Col>
-            </Col>
-          </Row>
-        ) : (
-          "ปิดใช้งาน"
-        )}
+          </Col>
+        </Row>
       </div>
       <ModalCallingQ show={modalShow} data={showQ} title="กำลังเรียกคิว" />
     </div>

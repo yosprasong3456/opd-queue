@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import Qtable from "../components/Qtable";
+import Qtable2 from "../components/Qtable2";
 import axios from "axios";
-import ModalCallQ from "../components/ModalCallQ";
+import ModalCallQ2 from "../components/ModalCallQ2";
 import { apiUrl } from "../constants";
 import dayjs from "dayjs";
 import "dayjs/locale/th";
 import { useNavigate } from "react-router-dom";
 import { readQueue } from "../components/fncCall";
+import Container from "react-bootstrap/Container";
 
-function Dashboard() {
+function DashboardTwoFNC() {
   const [time, setTime] = useState(getTime());
   const [modalShow, setModalShow] = React.useState(false);
   const [showQ, setShowQ] = useState(null);
@@ -21,6 +22,8 @@ function Dashboard() {
   const [allQueue, setAllQueue] = useState(null);
   const [today, setToday] = useState(getToday());
   const navigate = useNavigate();
+  const [isFullscreen, setIsFullscreen] = React.useState(false);
+
   useEffect(() => {
     let timer1 = setInterval(() => {
       setTime(getTime());
@@ -34,8 +37,12 @@ function Dashboard() {
   const getMenu = async () => {
     const { data } = await axios.get(`${apiUrl}opdConfigMenu.php`);
     if (data.message === "success") {
-      console.log("set", data.data);
-      setMenu(data.data.filter((data) => data.actived == 1 && data.id != 77));
+      console.log(
+        "set",
+        data.data.find((val) => val.id == 4)
+      );
+      let menu4 = data.data.find((val) => val.id == 4);
+      setMenu(menu4);
       return;
     } else {
       return;
@@ -48,8 +55,8 @@ function Dashboard() {
 
   useEffect(() => {
     const getAll = async () => {
-      const { data } = await axios.get(`${apiUrl}opdQueue.php`);
-      console.log(data);
+      const { data } = await axios.get(`${apiUrl}opd2Queue.php`);
+      // console.log(data);
       if (data.message === "success") {
         setAllQueue(data.data);
       }
@@ -75,15 +82,16 @@ function Dashboard() {
       let result = data.data.filter((data) => data.id == 77);
       // console.log(data.data.filter((data) => data.id == 77));
       // console.log(soundConfig)
+
       if (soundConfig) {
         if (soundConfig.actived != result[0].actived) {
           // window.location.reload(false)
-          console.log("if");
+          // console.log("if");
           setSoundConfig(result[0]);
         }
       } else {
         setSoundConfig(result[0]);
-        console.log("else", soundConfig);
+        // console.log("else", soundConfig);
       }
     } else {
       return;
@@ -91,12 +99,16 @@ function Dashboard() {
   }
 
   async function getCalled() {
-    const { data } = await axios.get(`${apiUrl}opdCallQ.php`);
+    const { data } = await axios.get(`${apiUrl}opd2CallQ.php`);
     if (data.message === "success") {
-      console.log(data);
-      if (!callQ) {
-        setCallQ(true);
-        setShowQ(data.data);
+      console.log(data.data.room);
+      if (data.data.room == "1" || data.data.room == "2") {
+        if (!callQ) {
+          setCallQ(true);
+          setShowQ(data.data);
+        }
+      } else {
+        return;
       }
     } else {
       return;
@@ -104,7 +116,7 @@ function Dashboard() {
   }
 
   useEffect(() => {
-    if (ModalCallQ) {
+    if (ModalCallQ2) {
       // console.log('callQ')
       callQFnc(showQ);
       return;
@@ -116,7 +128,7 @@ function Dashboard() {
   async function callQFnc(params = 0, call = 0) {
     if (params) {
       setModalShow(true);
-      console.log("params", params);
+      // console.log("params", params);
       if (soundConfig) {
         if (soundConfig.actived == 1) {
           let text4 = params.room;
@@ -168,12 +180,13 @@ function Dashboard() {
             audioEnd.play();
           });
           audioEnd.addEventListener("ended", function () {
-            console.log("Hello world");
-            if (!call) {
-              updateQ(params, 1);
-            } else {
-              updateQ(params);
-            }
+            updateQ(params);
+            // console.log("Hello world");
+            // if (!call) {
+            //   updateQ(params, 1);
+            // } else {
+            //   updateQ(params);
+            // }
           });
         } else {
           setTimeout(() => {
@@ -198,11 +211,11 @@ function Dashboard() {
         room: params.room,
         count: "",
       };
-      const { data } = await axios.put(`${apiUrl}opdQueue.php`, dataSet);
+      const { data } = await axios.put(`${apiUrl}opd2Queue.php`, dataSet);
       console.log("update", data);
       setModalShow(false);
-      setShowQ(null);
       setCallQ(false);
+      setShowQ(null);
     }
   }
 
@@ -223,50 +236,30 @@ function Dashboard() {
             <span>{time.slice(0, 2)}</span>
             <span>:</span>
             <span>{`${time.slice(3, 6)}`}</span>
-            <h3 style={{ fontWeight: "bold", marginTop: -20 }}>
+            <h3
+              style={{ fontWeight: "bold", marginTop: -20 }}
+              onClick={() => console.log("hello")}
+            >
               {dayjs(today).locale("th").format("DD MMMM YYYY")}
             </h3>
           </div>
         </Col>
       </Row>
       {/* <h1 style={{ padding: 20 }}>Dashboard Queue</h1> */}
-
-      <Row style={{ width: "100%", margin: "auto", marginTop: 20 }}>
-        {menu &&
-          allQueue &&
-          menu.map((data, index) => {
-            return (
-              <Col key={index} xs={4}>
-                <Qtable
-                  color={data.color_btn}
-                  title={data.name}
-                  data={allQueue.filter((val) => val.queue_type == data.id)}
-                />
-              </Col>
-            );
-          })}
-        {/* <Col>
-          {qType1 && (
-            <Qtable title="รับ - ส่งต่อ" data={qType1} reload={reload} />
+      <Container>
+        <Row style={{ width: "50%", margin: "auto", marginTop: 20 }}>
+          {allQueue && (
+            <Col>
+              <h1>การเงิน</h1>
+              <Qtable2
+                color="#37d67a"
+                data={allQueue.filter((val) => val.queue_type == 4)}
+              />
+            </Col>
           )}
-        </Col>
-        <Col>
-          {qType2 && (
-            <Qtable title="ตรวจสุขภาพมีนัดแล้ว" data={qType2} reload={reload} />
-          )}
-        </Col>
-        <Col>
-          {qType3 && (
-            <Qtable title="ตรวจสุขภาพไม่มีนัด" data={qType3} reload={reload} />
-          )}
-        </Col>
-        <Col>
-          {qType4 && (
-            <Qtable title="ตรวจรักษาโรค" data={qType4} reload={reload} />
-          )}
-        </Col> */}
-      </Row>
-      <ModalCallQ
+        </Row>
+      </Container>
+      <ModalCallQ2
         show={modalShow}
         onHide={() => setModalShow(false)}
         data={showQ}
@@ -302,4 +295,4 @@ function getToday() {
   return `${year}-${mouth}-${day}`;
 }
 
-export default Dashboard;
+export default DashboardTwoFNC;

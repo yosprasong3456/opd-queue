@@ -10,7 +10,7 @@ function CallQtable(props) {
       <h3>{props.title}</h3>
       <Table striped bordered hover>
         <thead>
-          <tr style={{backgroundColor: props.color}}>
+          <tr style={{ backgroundColor: props.color }}>
             <th>เลขคิว</th>
             <th>เวลากดคิว</th>
             <th>วันที่</th>
@@ -29,7 +29,13 @@ function CallQtable(props) {
                     {props.btnReCall ? (
                       <>
                         <Button
-                          disabled={props.disabled ? props.disabled : data.count > "2" ? true : false}
+                          disabled={
+                            props.disabled
+                              ? props.disabled
+                              : data.count > "2"
+                              ? true
+                              : false
+                          }
                           onClick={() => props.btnReCall(data)}
                           variant="warning"
                           style={{ marginRight: 5 }}
@@ -40,19 +46,18 @@ function CallQtable(props) {
                           disabled={data.count > "2" ? true : false}
                           onClick={() => props.btnAction(data)}
                           style={{ marginRight: 5 }}
-
                         >
                           {props.btnTitle}
                         </Button>
-                        {props.btnEndQueue &&  
-                        <Button
-                          variant="success"
-                          disabled={data.count > "2" ? true : false}
-                          onClick={() => props.btnEndQueue(data)}
-                        >
-                          จบคิว
-                        </Button>}
-                       
+                        {props.btnEndQueue && (
+                          <Button
+                            variant="success"
+                            disabled={data.count > "2" ? true : false}
+                            onClick={() => props.btnEndQueue(data)}
+                          >
+                            จบคิว
+                          </Button>
+                        )}
                       </>
                     ) : (
                       <>
@@ -62,9 +67,17 @@ function CallQtable(props) {
                         >
                           {props.btnTitle}
                         </Button>
+                        {props.btnEndQueue && (
+                          <Button
+                            style={{ marginLeft: 10 }}
+                            variant="danger"
+                            disabled={data.count > "2" ? true : false}
+                            onDoubleClick={() => props.btnEndQueue(data)}
+                          >
+                            ยกเลิกคิว
+                          </Button>
+                        )}
                       </>
-                      
-                      
                     )}
                   </td>
                 </tr>
