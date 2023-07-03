@@ -7,7 +7,7 @@ function Error() {
     <div className="App">
       <Header />
       <h1 style={{ marginTop: 270 }}>ไม่พบหน้า</h1>
-      <p>( last update : 2023.06.07 )</p>
+      <p>( last update : 2023.06.29 )</p>
       <a
         onClick={() => navigate("/queue")}
         style={{

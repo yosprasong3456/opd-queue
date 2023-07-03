@@ -21,7 +21,7 @@ function QtableMR(props) {
               return (
                 <tr key={index}>
                   <td>{data.queue_no}</td>
-                  <td>B1, B2, B3, B4</td>
+                  <td>1, 2, 3, 4</td>
                   {/*  <td>{changeDate(data.date)}</td> */}
                 </tr>
               );

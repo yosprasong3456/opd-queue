@@ -10,8 +10,10 @@ import dayjs from "dayjs";
 import "dayjs/locale/th";
 import { useNavigate } from "react-router-dom";
 import { readQueue } from "../components/fncCall";
-import Container from "react-bootstrap/Container";
-
+import {Container, Button} from "react-bootstrap";
+import {ReadSounds} from "../components/ReadSounds";
+import {callNewVoice} from '../components/fncCall'
+import { openFullscreen, closeFullscreen } from "../components/FullScreen";
 function DashboardTwo() {
   const [time, setTime] = useState(getTime());
   const [modalShow, setModalShow] = React.useState(false);
@@ -21,6 +23,7 @@ function DashboardTwo() {
   const [soundConfig, setSoundConfig] = useState(null);
   const [allQueue, setAllQueue] = useState(null);
   const [today, setToday] = useState(getToday());
+  const [fullScreen, setFullScreen] = useState(false);
   const navigate = useNavigate();
   const [isFullscreen, setIsFullscreen] = React.useState(false);
 
@@ -58,7 +61,7 @@ function DashboardTwo() {
       const { data } = await axios.get(`${apiUrl}opd2Queue.php`);
       // console.log(data);
       if (data.message === "success") {
-        setAllQueue(data.data);
+          setAllQueue(data.data);  
       }
     };
     const id = setInterval(() => {
@@ -74,7 +77,7 @@ function DashboardTwo() {
       getSoundConfig();
     }, 2000);
     return () => clearInterval(interval);
-  }, [soundConfig]);
+  }, [soundConfig,callQ]);
 
   async function getSoundConfig() {
     const { data } = await axios.get(`${apiUrl}opdConfigMenu.php`);
@@ -100,12 +103,19 @@ function DashboardTwo() {
 
   async function getCalled() {
     const { data } = await axios.get(`${apiUrl}opd2CallQ.php`);
+    // console.log(data)
     if (data.message === "success") {
       if (data.data.room == "3" || data.data.room == "4") {
-        if (!callQ) {
-          setCallQ(true);
-          setShowQ(data.data);
+        if(data.data.status == '5'){
+          updateQ(data.data, 0, 2)
+          window.location.reload(true)
+        }else{
+          if (!callQ) {
+            setCallQ(true);
+            setShowQ(data.data);
+          }
         }
+        
       } else {
         return;
       }
@@ -130,6 +140,9 @@ function DashboardTwo() {
       // console.log("params", params);
       if (soundConfig) {
         if (soundConfig.actived == 1) {
+          // let textCall =`ขอเชิญหมายเลข ดี ${params.queue_no.charAt(1)}${params.queue_no.charAt(2)}${params.queue_no.charAt(3)} ที่ช่องบริการ ${params.room}ครับ`
+          // callNewVoice(updateQ,params,textCall)
+          // ReadSounds()
           let text4 = params.room;
           console.log("sound dashboard");
           console.log("sound counter");
@@ -199,14 +212,14 @@ function DashboardTwo() {
     }
   }
 
-  async function updateQ(params, call = 0) {
+  async function updateQ(params, call = 0, status = 1) {
     console.log("updateQ");
     if (call) {
       callQFnc(params, 1);
     } else {
       const dataSet = {
         id: params.id,
-        status: 1,
+        status: status,
         room: params.room,
         count: "",
       };
@@ -215,6 +228,7 @@ function DashboardTwo() {
       setModalShow(false);
       setCallQ(false);
       setShowQ(null);
+      getCalled()
     }
   }
 
@@ -241,7 +255,25 @@ function DashboardTwo() {
             >
               {dayjs(today).locale("th").format("DD MMMM YYYY")}
             </h3>
+            {!fullScreen ? (
+            <Button
+              onClick={() => openFullscreen(setFullScreen)}
+              variant="outline-success"
+              style={{marginTop: -14}}
+            >
+              Fullscreen
+            </Button>
+          ) : (
+            <Button
+              onClick={() => closeFullscreen(setFullScreen)}
+              variant="outline-success"
+              style={{marginTop: -14}}
+
+            >
+              Exit fullscreen
+            </Button>)}
           </div>
+          
         </Col>
       </Row>
       {/* <h1 style={{ padding: 20 }}>Dashboard Queue</h1> */}

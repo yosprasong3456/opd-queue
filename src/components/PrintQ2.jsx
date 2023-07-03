@@ -8,7 +8,7 @@ import { apiUrl } from "../constants";
 function PrintQ2(props) {
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
-  const [callWait, setCallWait] = useState(null);
+  // const [callWait, setCallWait] = useState(null);
   const [rePrint, setrePrint] = useState(false);
   const componentRef = React.useRef();
   const handlePrint = useReactToPrint({
@@ -18,7 +18,7 @@ function PrintQ2(props) {
   });
 
   useEffect(() => {
-    getAll();
+    // getAll();
     setrePrint(false);
     const date = new Date();
     let hour = date.getHours();
@@ -52,22 +52,22 @@ function PrintQ2(props) {
     }
   }, [rePrint, setrePrint]);
 
-  const getAll = async () => {
-    setCallWait(null);
-    let typeQ = props.type;
-    console.log(typeQ);
-    const { data } = await axios.get(`${apiUrl}opd2Queue.php`);
-    console.log(data);
-    if (data.message === "success") {
-      let result_wait = data.data.filter((data) => data.status == 0);
+  // const getAll = async () => {
+  //   setCallWait(null);
+  //   let typeQ = props.type;
+  //   console.log(typeQ);
+  //   const { data } = await axios.get(`${apiUrl}opd2Queue.php`);
+  //   console.log(data);
+  //   if (data.message === "success") {
+  //     let result_wait = data.data.filter((data) => data.status == 0);
 
-      setCallWait(result_wait.length);
+  //     setCallWait(result_wait.length);
 
-      return;
-    } else {
-      return;
-    }
-  };
+  //     return;
+  //   } else {
+  //     return;
+  //   }
+  // };
 
   function handleClosePrint() {
     if (rePrint) {
@@ -96,7 +96,7 @@ function PrintQ2(props) {
       <hr /> */}
       <h6>ห้องยานอกและการเงิน</h6>
       <h1 style={{ fontSize: 30, paddingTop: 1 }}>{props.queue}</h1>
-      <p>จำนวนที่รอคิว : {callWait - 1}</p>
+      {/* <p>จำนวนที่รอคิว : {callWait - 1}</p> */}
       {/* <span>{time && time}</span>
       <p>{date && date}</p> */}
     </div>

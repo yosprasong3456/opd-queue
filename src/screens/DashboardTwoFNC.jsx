@@ -55,8 +55,8 @@ function DashboardTwoFNC() {
 
   useEffect(() => {
     const getAll = async () => {
-      const { data } = await axios.get(`${apiUrl}opd2Queue.php`);
-      // console.log(data);
+      const { data } = await axios.get(`${apiUrl}opdfncQueue.php`);
+      console.log(data);
       if (data.message === "success") {
         setAllQueue(data.data);
       }
@@ -99,7 +99,7 @@ function DashboardTwoFNC() {
   }
 
   async function getCalled() {
-    const { data } = await axios.get(`${apiUrl}opd2CallQ.php`);
+    const { data } = await axios.get(`${apiUrl}opdFncCallQ.php`);
     if (data.message === "success") {
       console.log(data.data.room);
       if (data.data.room == "1" || data.data.room == "2") {
@@ -211,7 +211,7 @@ function DashboardTwoFNC() {
         room: params.room,
         count: "",
       };
-      const { data } = await axios.put(`${apiUrl}opd2Queue.php`, dataSet);
+      const { data } = await axios.put(`${apiUrl}opdfncQueue.php`, dataSet);
       console.log("update", data);
       setModalShow(false);
       setCallQ(false);
@@ -253,7 +253,7 @@ function DashboardTwoFNC() {
               <h1>การเงิน</h1>
               <Qtable2
                 color="#37d67a"
-                data={allQueue.filter((val) => val.queue_type == 4)}
+                data={allQueue}
               />
             </Col>
           )}

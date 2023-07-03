@@ -87,7 +87,7 @@ function Header() {
           </Navbar.Text>
 
           <Navbar.Text style={{ cursor: "pointer", marginLeft: 6 }}>
-            <NavDropdown title="| ห้องยา&การเงิน">
+            <NavDropdown title="| ห้องยา">
               <NavDropdown.Item
                 href="#"
                 onClick={() => navigate("/queue2")}
@@ -110,6 +110,40 @@ function Header() {
               >
                 Dashboard (ห้องยา)
               </NavDropdown.Item>
+              {/* <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/dashboard2-fnc")}
+                style={{ color: "black" }}
+              >
+                Dashboard (การเงิน)
+              </NavDropdown.Item> */}
+            </NavDropdown>
+          </Navbar.Text>
+
+          <Navbar.Text style={{ cursor: "pointer", marginLeft: 6 }}>
+            <NavDropdown title="| การเงิน">
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/queuefnc")}
+                style={{ color: "black" }}
+              >
+                กดคิว
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/select-fnc")}
+                style={{ color: "black" }}
+              >
+                เรียกคิว
+              </NavDropdown.Item>
+              <NavDropdown.Divider />
+              {/* <NavDropdown.Item
+                href="#"
+                onClick={() => navigate("/dashboard2")}
+                style={{ color: "black" }}
+              >
+                Dashboard (ห้องยา)
+              </NavDropdown.Item> */}
               <NavDropdown.Item
                 href="#"
                 onClick={() => navigate("/dashboard2-fnc")}

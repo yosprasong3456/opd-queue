@@ -5,7 +5,7 @@ import "dayjs/locale/th";
 import axios from "axios";
 import { apiUrl } from "../constants";
 
-function PrintMR(props) {
+function PrintQFnc(props) {
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const [callWait, setCallWait] = useState(null);
@@ -81,15 +81,11 @@ function PrintMR(props) {
         style={{ textAlign: "center", paddingBottom: 20 }}
         className="App"
       >
-        {/* <h5 style={{paddingTop: 20}}>โรงพยาบาลมะเร็งอุดรธานี</h5> */}
-        <p style={{paddingTop: 10}}>ตรวจสอบสิทธิ์ (เวชระเบียน)</p>
-        <h1 style={{ fontSize: 70 }}>{props.queue}</h1>
-        <p>จำนวนที่รอคิว : {callWait - 1}</p>
-        <span>{time && time}</span>
-        <p>{date && date}</p>
+        <p style={{paddingTop: 10}}>การเงินนอก</p>
+        <h1 style={{ fontSize: 40 }}>{props.queue}</h1>
       </div>
     </div>
   );
 }
 
-export default PrintMR;
+export default PrintQFnc;

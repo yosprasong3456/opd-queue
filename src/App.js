@@ -19,6 +19,9 @@ import CallQMR from './screens/CallQMR';
 import DashboardMR from './screens/DashboardMR';
 import RoomDrug from './screens/RoomDrug';
 import DashboardTwoFNC from './screens/DashboardTwoFNC';
+import RoomFnc from './screens/RoomFnc';
+import PressQFnc from './screens/PressQFnc';
+import CallQFnc from './screens/CallQFnc';
 //--------------------------------------
 function App() {
   console.log(process.env.NODE_ENV)
@@ -42,6 +45,11 @@ function App() {
         <Route path="/queue2" element={<PressQ2 />}/>
         <Route path="/select-drug" element={<RoomDrug />}/>
         <Route path="/callq2/:id" element={<CallQ2 />}/>
+
+        {/* FNC couter F */}
+        <Route path="/select-fnc" element={<RoomFnc />}/>
+        <Route path="/queuefnc" element={<PressQFnc />}/>
+        <Route path="/callqFnc/:id" element={<CallQFnc />}/>
 
         {/* MR */}
         <Route path="/dashboardMR" element={<DashboardMR />}/>

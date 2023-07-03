@@ -1,10 +1,11 @@
-export const callNewVoice = (params) => {
-  const message = new SpeechSynthesisUtterance(params);
+export const callNewVoice = (endCall,params,textCall) => {
+  const message = new SpeechSynthesisUtterance(textCall);
   message.lang = "th-TH";
-  message.rate = 0.2;
+  message.rate = 0.9;
   message.volume = 1;
   message.onend = function (e) {
     console.log("Finished in " + e.elapsedTime + " seconds.");
+    endCall(params)
   };
   speechSynthesis.speak(message);
 };

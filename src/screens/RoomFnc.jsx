@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
-function RoomDrug() {
+function RoomFnc() {
   const navigate = useNavigate();
 
   const counterMR = [
@@ -42,13 +42,10 @@ function RoomDrug() {
         })}
         <hr /> */}
         <hr />
-        <h1> ห้องยา </h1>
-        {counterMR.filter((val)=> val.id == 3 || val.id == 4).map((data, index) => {
-          return (
-            <div
-              key={index}
+        <h1> การเงินนอก </h1>
+        <div
               style={{
-                backgroundColor: data.color,
+                backgroundColor: 'salmon',
                 width:300,
                 padding: 20,
                 fontSize: 20,
@@ -56,13 +53,27 @@ function RoomDrug() {
                 borderRadius: 5
               }}
               onClick={() => {
-                navigate("/callq2/" + data.id);
+                navigate("/callqFnc/1");
               }}
             >
-              {data.name}
+              ห้องบริการที่ 1
             </div>
-          );
-        })}
+
+            <div
+              style={{
+                backgroundColor: 'salmon',
+                width:300,
+                padding: 20,
+                fontSize: 20,
+                cursor: "pointer",
+                borderRadius: 5
+              }}
+              onClick={() => {
+                navigate("/callqFnc/2");
+              }}
+            >
+              ห้องบริการที่ 2
+            </div>
         <hr />
       </div>
     </div>
@@ -71,4 +82,4 @@ function RoomDrug() {
 
 
 
-export default RoomDrug;
+export default RoomFnc;

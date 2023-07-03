@@ -13,6 +13,7 @@ import { readQueue } from "../components/fncCall";
 import QtableMR from "../components/QtableMR";
 import Container from "react-bootstrap/Container";
 import ModalCallQMR from "../components/ModalCallQMR";
+import { btnFullScreen } from "../components/FullScreen";
 
 function DashboardMR() {
   const [time, setTime] = useState(getTime());
@@ -132,8 +133,8 @@ function DashboardMR() {
           let text4 = params.room;
           console.log("sound dashboard");
           console.log("sound counter");
-          const audioB = new Audio(
-            `https://opd-queue.udch.work/audio/B.mp3`
+          const audioM = new Audio(
+            `https://opd-queue.udch.work/audio/M.mp3`
           );
           const audio = new Audio("https://opd-queue.udch.work/audio/call.mp3");
           const audio1 = new Audio(
@@ -176,9 +177,9 @@ function DashboardMR() {
             service.play();
           });
           service.addEventListener("ended", function () {
-            audioB.play();
+            audioM.play();
           });
-          audioB.addEventListener("ended", function () {
+          audioM.addEventListener("ended", function () {
             audio5.play();
           });
           audio5.addEventListener("ended", function () {
@@ -186,11 +187,12 @@ function DashboardMR() {
           });
           audioEnd.addEventListener("ended", function () {
             console.log("Hello world");
-            if (!call) {
-              updateQ(params, 1);
-            } else {
-              updateQ(params);
-            }
+            updateQ(params);
+            // if (!call) {
+            //   updateQ(params, 1);
+            // } else {
+            //   updateQ(params);
+            // }
           });
         } else {
           setTimeout(() => {
@@ -247,6 +249,7 @@ function DashboardMR() {
               {dayjs(today).locale("th").format("DD MMMM YYYY")}
             </h3>
           </div>
+          {btnFullScreen()}
         </Col>
       </Row>
       {/* <h1 style={{ padding: 20 }}>เวชระเบียน</h1> */}

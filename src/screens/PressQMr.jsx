@@ -19,6 +19,7 @@ import dayjs from 'dayjs'
 import 'dayjs/locale/th'
 import { useNavigate } from "react-router-dom";
 import ModalPrintMR from "../components/ModalPrintMR";
+import { btnFullScreen } from "../components/FullScreen";
 
 function PressQ2() {
   const [time, setTime] = useState(getTime());
@@ -90,10 +91,11 @@ function PressQ2() {
           <span>{`${time.slice(3, 6)}`}</span>
           <h5 style={{fontWeight : 'bold', marginTop: -20}}>{dayjs(today).locale('th').format('DD MMMM YYYY')}</h5>
         </div>
-        
+        {btnFullScreen()}
         </Col>
+        
       </Row>
-        <div className="centerDiv" style={{marginTop: '18%'}}>
+        <div className="centerDiv" style={{marginTop: '23%'}}>
         
         <ButtonQueue
                 //   key={index}

@@ -127,7 +127,7 @@ function CallQ2() {
     }
   }
 
-  const callQFnc = async (params) => {
+  const callQFnc = async (params, status = 2) => {
     console.log(params);
     const count = parseInt(params.count) + 1;
     let room = match.params.id;
@@ -142,7 +142,7 @@ function CallQ2() {
     // }
     const dataSet = {
       id: params.id,
-      status: 2,
+      status: status,
       count: 0,
       room: room,
     };
@@ -411,7 +411,8 @@ function CallQ2() {
           </Col>
         </Row>
       </div>
-      <ModalCallingQ show={modalShow} data={showQ} title="กำลังเรียกคิว" />
+      {modalShow &&       <ModalCallingQ reset={1} reCall={callQFnc} show={modalShow} data={showQ} title="กำลังเรียกคิว" />
+}
     </div>
   );
 }

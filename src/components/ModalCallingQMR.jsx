@@ -16,7 +16,7 @@ function ModalCallingQMR(props) {
           <p style={{ fontSize: '15vw', fontWeight: 800 }} className="qBlink">
             {props.data && props.data.queue_no}
           </p>
-          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ B{props.data && props.data.room} </p>
+          <p style={{ fontSize: '5vw', fontWeight: 800 }}>ที่ช่องบริการ M{props.data && props.data.room} </p>
         </div>
       </Modal.Body>
       {/* <Modal.Footer>
