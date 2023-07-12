@@ -40,6 +40,7 @@ export function btnFullScreen() {
       elem.msRequestFullscreen();
     }
   }
+  fullscreen()
   document.addEventListener(
     "keydown",
     (e) => {
@@ -49,6 +50,7 @@ export function btnFullScreen() {
     },
     false
   );
+  
   // return (
   //   <div style={{ marginTop: -6 }}>
   //     <Button style={{ marginRight: 2, padding:1 }} variant="outline-primary" onClick={()=> fullscreen()}>

@@ -11,6 +11,7 @@ import CallQtable from "../components/CallQtable";
 import ModalCallingQ from "../components/ModalCallingQ";
 import { apiUrl } from "../constants";
 import ModalCallingQMR from "../components/ModalCallingQMR";
+import ModalCallingQFnc from "../components/ModalCallingQFNC";
 // import { callNewVoice } from "../components/fncCall";
 
 function CallQFnc() {
@@ -98,7 +99,7 @@ function CallQFnc() {
   }
 
   async function getCalled() {
-    const { data } = await axios.get(`${apiUrl}opdmrCallQ.php`);
+    const { data } = await axios.get(`${apiUrl}opdfncCallQ.php`);
     if (data.message === "success") {
       // console.log(data);
       if (!callQ) {
@@ -114,7 +115,7 @@ function CallQFnc() {
     }
   }
 
-  const callQFnc = async (params) => {
+  const callQueueFnc = async (params) => {
     const count = parseInt(params.count) + 1;
     let room = match.params.id
     const dataSet = {
@@ -124,7 +125,7 @@ function CallQFnc() {
       room: room
     };
     const { data } = await axios.put(`${apiUrl}opdfncQueue.php`, dataSet);
-    console.log("callQfnc", data);
+    console.log("callQueueFnc", data);
     getAll();
     callSound(params, 0 , room);
     console.log("data", data);
@@ -212,7 +213,7 @@ function CallQFnc() {
     console.log(callWait[0]);
     if (callWait.length) {
       setCallingQueue(callWait[0]);
-      callQFnc(callWait[0]);
+      callQueueFnc(callWait[0]);
       console.log(count);
     } else {
       console.log("no queue");
@@ -226,7 +227,7 @@ function CallQFnc() {
   const newCalledQueue = () => {
     console.log("call", callingQueue);
     const result = calledQ.find((val) => val.id == callingQueue.id);
-    callQFnc(result);
+    callQueueFnc(result);
   };
 
   const endCallQueue = () => {
@@ -317,7 +318,7 @@ function CallQFnc() {
                 color={colorBtn[typeQueue]}
                 data={callWait}
                 title="รอคิว"
-                btnAction={callQFnc}
+                btnAction={callQueueFnc}
                 btnTitle="เรียกคิว"
                 disabled={callingQueue ? true : soundConfig ? false : true}
               />
@@ -330,7 +331,7 @@ function CallQFnc() {
                   title="เรียกคิวแล้ว"
                   btnAction={callQBack}
                   btnTitle="รอคิว"
-                  btnReCall={callQFnc}
+                  btnReCall={callQueueFnc}
                   btnReCallTitle="เรียกซ้ำ"
                   disabled={callingQueue ? true : soundConfig ? false : true}
                 />
@@ -341,7 +342,7 @@ function CallQFnc() {
           "ปิดใช้งาน"
         )}
       </div>
-      <ModalCallingQMR show={modalShow} data={showQ} title="กำลังเรียกคิว" />
+      <ModalCallingQFnc show={modalShow} data={showQ} title="กำลังเรียกคิว" />
     </div>
   );
 }

@@ -11,6 +11,7 @@ import "dayjs/locale/th";
 import { useNavigate } from "react-router-dom";
 import { readQueue } from "../components/fncCall";
 import Container from "react-bootstrap/Container";
+import { btnFullScreen } from "../components/FullScreen";
 
 function DashboardTwoFNC() {
   const [time, setTime] = useState(getTime());
@@ -51,6 +52,7 @@ function DashboardTwoFNC() {
 
   useEffect(() => {
     getMenu();
+    btnFullScreen()
   }, []);
 
   useEffect(() => {

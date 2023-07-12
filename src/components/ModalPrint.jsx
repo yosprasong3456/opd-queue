@@ -8,7 +8,7 @@ function ModalPrint(props) {
   return (
     <Modal
       show={props.show}
-      onHide={props.onHide}
+      // onHide={props.onHide}
       size="lg"
       aria-labelledby="contained-modal-title-vcenter"
       centered

@@ -9,6 +9,7 @@ function PrintQFnc(props) {
   const [date, setDate] = useState(null);
   const [time, setTime] = useState(null);
   const [callWait, setCallWait] = useState(null);
+  const [rePrint, setrePrint] = useState(false);
   const componentRef = React.useRef();
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -39,11 +40,16 @@ function PrintQFnc(props) {
         .format("DD MMMM YYYY")
     );
     setTimeout(() => {
-      // console.log("day js DD-MM-YYYY", dayjs(`${date.getFullYear()}-${parseInt(date.getMonth() + 1)}-${date.getDate()}`).locale('th').add(543, 'year').format('DD MMMM YYYY'))
       handlePrint();
-      // typeCheck(props.type)
     }, 1500);
   }, []);
+
+  useEffect(() => {
+    if (rePrint) {
+      console.log("rePrint");
+      handlePrint();
+    }
+  }, [rePrint, setrePrint]);
 
   const getAll = async () => {
     setCallWait(null);
@@ -63,8 +69,12 @@ function PrintQFnc(props) {
   };
 
   function handleClosePrint() {
-    props.setType(null);
-    props.setQData(null);
+    if (rePrint) {
+      props.setType(null);
+      props.setQData(null);
+    } else {
+      setrePrint(true);
+    }
   }
 
   return (
@@ -81,7 +91,7 @@ function PrintQFnc(props) {
         style={{ textAlign: "center", paddingBottom: 20 }}
         className="App"
       >
-        <p style={{paddingTop: 10}}>การเงินนอก</p>
+        <h6>การเงินนอก</h6>
         <h1 style={{ fontSize: 40 }}>{props.queue}</h1>
       </div>
     </div>

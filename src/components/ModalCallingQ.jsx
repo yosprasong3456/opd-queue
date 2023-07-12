@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+
 function ModalCallingQ(props) {
   const [reset, setReset] = useState(false);
   useEffect(() => {
@@ -48,4 +49,5 @@ function ModalCallingQ(props) {
   );
 }
 
-export default ModalCallingQ;
+
+export default ModalCallingQ

@@ -27,7 +27,7 @@ function PrintMR(props) {
     if (minutes < 10) {
       minutes = "0" + date.getMinutes();
     }
-    setTime(`${date.getHours()}:${date.getMinutes()}`);
+    setTime(`${hour}:${minutes}`);
     setDate(
       dayjs(
         `${date.getFullYear()}-${parseInt(
@@ -78,14 +78,13 @@ function PrintMR(props) {
         <hr />
       <div
         ref={componentRef}
-        style={{ textAlign: "center", paddingBottom: 20 }}
+        style={{ textAlign: "center", paddingBottom: 5 }}
         className="App"
       >
         {/* <h5 style={{paddingTop: 20}}>โรงพยาบาลมะเร็งอุดรธานี</h5> */}
-        <p style={{paddingTop: 10}}>ตรวจสอบสิทธิ์ (เวชระเบียน)</p>
+        <p style={{paddingTop: 5}}>ตรวจสอบสิทธิ์ (เวชระเบียน)</p>
         <h1 style={{ fontSize: 70 }}>{props.queue}</h1>
-        <p>จำนวนที่รอคิว : {callWait - 1}</p>
-        <span>{time && time}</span>
+        <p>รอคิว : {callWait - 1} , เวลา : {time && time}</p>
         <p>{date && date}</p>
       </div>
     </div>

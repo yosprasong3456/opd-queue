@@ -79,23 +79,6 @@ function CallQMR() {
     return () => clearInterval(interval);
   }, [soundConfig]);
 
-//   async function getMenu() {
-    // let typeQ = match.params.id 
-    
-    // if(match.params.id !='1' && match.params.id !='2' && match.params.id !='4'){
-    //   typeQ = 3
-    // }
-    // const { data } = await axios.get(`${apiUrl}opdConfigMenu.php`);
-    // if (data.message === "success") {
-    //   let result = data.data.find((data) => data.id == typeQ);
-    //   console.log("set", result);
-    //   setMenu(result);
-    //   return;
-    // } else {
-    //   return;
-    // }
-//   }
-
   async function getSoundConfig() {
     const { data } = await axios.get(`${apiUrl}opdConfigMenu.php`);
     // console.log("sound", data);

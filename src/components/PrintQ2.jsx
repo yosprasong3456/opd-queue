@@ -91,14 +91,8 @@ function PrintQ2(props) {
       style={{ textAlign: "center", paddingBottom: 20 }}
       className="App"
     >
-      {/* <h5 style={{paddingTop: 20}}>โรงพยาบาลมะเร็งอุดรธานี</h5> */}
-      {/* <img src="/fulludch.png" alt="logo" width={200} style={{paddingTop: 20}} />
-      <hr /> */}
       <h6>ห้องยานอกและการเงิน</h6>
       <h1 style={{ fontSize: 30, paddingTop: 1 }}>{props.queue}</h1>
-      {/* <p>จำนวนที่รอคิว : {callWait - 1}</p> */}
-      {/* <span>{time && time}</span>
-      <p>{date && date}</p> */}
     </div>
   );
 }

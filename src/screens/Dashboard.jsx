@@ -10,6 +10,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/th";
 import { useNavigate } from "react-router-dom";
 import { readQueue } from "../components/fncCall";
+import { btnFullScreen } from "../components/FullScreen";
 
 function Dashboard() {
   const [time, setTime] = useState(getTime());
@@ -43,7 +44,9 @@ function Dashboard() {
   };
 
   useEffect(() => {
+    btnFullScreen()
     getMenu();
+     
   }, []);
 
   useEffect(() => {
@@ -168,12 +171,13 @@ function Dashboard() {
             audioEnd.play();
           });
           audioEnd.addEventListener("ended", function () {
-            console.log("Hello world");
-            if (!call) {
-              updateQ(params, 1);
-            } else {
-              updateQ(params);
-            }
+            updateQ(params);
+            // console.log("Hello world");
+            // if (!call) {
+            //   updateQ(params, 1);
+            // } else {
+            //   updateQ(params);
+            // }
           });
         } else {
           setTimeout(() => {
